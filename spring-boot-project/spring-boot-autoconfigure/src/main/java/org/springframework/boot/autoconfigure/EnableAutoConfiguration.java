@@ -34,6 +34,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 
 /**
+ * 启用Spring应用上下文的auto-configuration, 尝试去猜测和配置可能需要的bean.
+ * 通常根据classpath和定义的Bean来自动配置类. 例如, 如果classpath下包含{@code tomcat-embedded.jar},
+ * 那么你可能就会需要{@link TomcatServletWebServerFactory}(除非已经自定义了{@link ServletWebServerFactory} bean).
  * Enable auto-configuration of the Spring Application Context, attempting to guess and
  * configure beans that you are likely to need. Auto-configuration classes are usually
  * applied based on your classpath and what beans you have defined. For example, if you
@@ -41,10 +44,15 @@ import org.springframework.core.io.support.SpringFactoriesLoader;
  * {@link TomcatServletWebServerFactory} (unless you have defined your own
  * {@link ServletWebServerFactory} bean).
  * <p>
+ * 当使用 {@link SpringBootApplication @SpringBootApplication}时, 将自动启用上下文的自动配置,
+ * 而且这个注解没有其他影响.
  * When using {@link SpringBootApplication @SpringBootApplication}, the auto-configuration
  * of the context is automatically enabled and adding this annotation has therefore no
  * additional effect.
  * <p>
+ * Auto-configuration会尝试尽可能智能化，并且在您定义更多自己的配置时自动退出. 你可以手动{@link #exclude()}
+ * 任何你不想应用的配置(若无法访问该方法,请使用{@link #excludeName()}), 也可以通过
+ * {@code spring.autoconfigure.exclude}排除. Auto-configuration总会在用户定义的bean之后应用.
  * Auto-configuration tries to be as intelligent as possible and will back-away as you
  * define more of your own configuration. You can always manually {@link #exclude()} any
  * configuration that you never want to apply (use {@link #excludeName()} if you don't
@@ -52,6 +60,8 @@ import org.springframework.core.io.support.SpringFactoriesLoader;
  * {@code spring.autoconfigure.exclude} property. Auto-configuration is always applied
  * after user-defined beans have been registered.
  * <p>
+ * 通常通过{@code @SpringBootApplication}用{@code @EnableAutoConfiguration}注解的类的包具有特殊意义,
+ * 被用作默认值的basePackage。
  * The package of the class that is annotated with {@code @EnableAutoConfiguration},
  * usually via {@code @SpringBootApplication}, has specific significance and is often used
  * as a 'default'. For example, it will be used when scanning for {@code @Entity} classes.
