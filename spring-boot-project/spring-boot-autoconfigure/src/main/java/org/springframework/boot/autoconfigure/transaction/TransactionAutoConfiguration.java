@@ -30,6 +30,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.autoconfigure.transaction.jta.JtaAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -81,6 +82,12 @@ public class TransactionAutoConfiguration {
 
 	}
 
+	/**
+	 * PlatformTransactionManager是TransactionManager的子类.
+	 * AbstractTransactionManagementConfiguration是@EnableTransactionManagement注解中的@Import指定的Selector类
+	 * {@link org.springframework.transaction.annotation.TransactionManagementConfigurationSelector#selectImports(AdviceMode)}
+	 * 返回的类的父类，所以可以认为ConditionalOnMissingBean为true.
+	 */
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnBean(TransactionManager.class)
 	@ConditionalOnMissingBean(AbstractTransactionManagementConfiguration.class)

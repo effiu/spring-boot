@@ -166,6 +166,8 @@ public class AutoConfigurationImportSelector implements DeferredImportSelector, 
 	}
 
 	/**
+	 * 返回自动装配类名称，默认情况下该方法将会使用{@link SpringFactoriesLoader}加载候选的类名
+	 * 其对应的key为:org.springframework.boot.autoconfigure.EnableAutoConfiguration.
 	 * Return the auto-configuration class names that should be considered. By default
 	 * this method will load candidates using {@link SpringFactoriesLoader} with
 	 * {@link #getSpringFactoriesLoaderFactoryClass()}.
@@ -425,7 +427,7 @@ public class AutoConfigurationImportSelector implements DeferredImportSelector, 
 		}
 
 		/**
-		 * org.springframework.context.annotation.ConfigurationClassParser.DeferredImportSelectorGrouping#getImports()
+		 * org.springframework.context.annotation.ConfigurationClassParser.DeferredImportSelectorGrouping#getImports().
 		 * @param annotationMetadata
 		 * @param deferredImportSelector
 		 */
@@ -444,7 +446,7 @@ public class AutoConfigurationImportSelector implements DeferredImportSelector, 
 		}
 
 		/**
-		 * org.springframework.context.annotation.ConfigurationClassParser.DeferredImportSelectorGrouping#getImports()
+		 * org.springframework.context.annotation.ConfigurationClassParser.DeferredImportSelectorGrouping#getImports().
 		 * @return
 		 */
 		@Override

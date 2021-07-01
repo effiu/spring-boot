@@ -80,7 +80,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * 通过从众所周知的文件位置加载属性配置上下文环境。
- * 默认属性将会从下面位置的application.properties或者application.yml文件中
+ * 默认属性将会从下面位置的application.properties或者application.yml文件中.
  * {@link EnvironmentPostProcessor} that configures the context environment by loading
  * properties from well known file locations. By default properties will be loaded from
  * 'application.properties' and/or 'application.yml' files in the following locations:

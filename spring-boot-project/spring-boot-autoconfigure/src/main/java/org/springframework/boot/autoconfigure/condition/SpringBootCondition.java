@@ -29,6 +29,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
 /**
+ * Spring Boot使用的所有{@link Condition}实现的基础。提供合理的日志记录，以帮助用户诊断要加载的类
  * Base of all {@link Condition} implementations used with Spring Boot. Provides sensible
  * logging to help the user diagnose what classes are loaded.
  *

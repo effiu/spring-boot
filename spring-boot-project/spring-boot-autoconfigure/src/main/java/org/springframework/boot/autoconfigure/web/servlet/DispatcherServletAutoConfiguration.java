@@ -51,6 +51,8 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
+ * Spring{@link DispatcherServlet}的{@link EnableAutoConfiguration Auto-configuration}
+ * 适用于已经存在嵌入式Web服务器的独立应用程序，也适用于使用{@link SpringBootServletInitializer}的可部署应用程序
  * {@link EnableAutoConfiguration Auto-configuration} for the Spring
  * {@link DispatcherServlet}. Should work for a standalone application where an embedded
  * web server is already present and also for a deployable application using
@@ -88,10 +90,15 @@ public class DispatcherServletAutoConfiguration {
 		@Bean(name = DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
 		public DispatcherServlet dispatcherServlet(WebMvcProperties webMvcProperties) {
 			DispatcherServlet dispatcherServlet = new DispatcherServlet();
+			// 是否应该直接向DispatcherServlce.doService(request,response)发送HTTP OPTIONS请求,默认为true
 			dispatcherServlet.setDispatchOptionsRequest(webMvcProperties.isDispatchOptionsRequest());
+			// 是否应该直接向DispatcherServlce.doService(request,response)发送HTTP TRACE请求,默认为false
 			dispatcherServlet.setDispatchTraceRequest(webMvcProperties.isDispatchTraceRequest());
+			// throwExceptionIfNoHandlerFound属性在DispatcherServlet中默认为false，这里通过WebMvcProperties属性重置
 			dispatcherServlet.setThrowExceptionIfNoHandlerFound(webMvcProperties.isThrowExceptionIfNoHandlerFound());
+			// 是否应该在每个请求结束时发布一个ServletRequestHandledEvent，默认为true，主要用于打印日志等
 			dispatcherServlet.setPublishEvents(webMvcProperties.isPublishRequestHandledEvents());
+			// 是否记录潜在的敏感信息(DEBUG的请求参数+TRACE的header)
 			dispatcherServlet.setEnableLoggingRequestDetails(webMvcProperties.isLogRequestDetails());
 			return dispatcherServlet;
 		}
@@ -101,6 +108,7 @@ public class DispatcherServletAutoConfiguration {
 		@ConditionalOnMissingBean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)
 		public MultipartResolver multipartResolver(MultipartResolver resolver) {
 			// Detect if the user has created a MultipartResolver but named it incorrectly
+			// 检查用户是否创建了MultipartResolver，但是命名不正确
 			return resolver;
 		}
 
@@ -119,7 +127,9 @@ public class DispatcherServletAutoConfiguration {
 				WebMvcProperties webMvcProperties, ObjectProvider<MultipartConfigElement> multipartConfig) {
 			DispatcherServletRegistrationBean registration = new DispatcherServletRegistrationBean(dispatcherServlet,
 					webMvcProperties.getServlet().getPath());
+			// dispatcherServlet名
 			registration.setName(DEFAULT_DISPATCHER_SERVLET_BEAN_NAME);
+			// 默认为-1，即使用时启动，实际在SpringBoot中会提前启动
 			registration.setLoadOnStartup(webMvcProperties.getServlet().getLoadOnStartup());
 			multipartConfig.ifAvailable(registration::setMultipartConfig);
 			return registration;

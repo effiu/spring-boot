@@ -64,6 +64,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMappi
 import org.springframework.web.util.UrlPathHelper;
 
 /**
+ * 自定义{@link HandlerMapping}，使{@link ExposableWebEndpoint web断点}使用Spring MVC通过HTTP可用。
  * A custom {@link HandlerMapping} that makes {@link ExposableWebEndpoint web endpoints}
  * available over HTTP using Spring MVC.
  *

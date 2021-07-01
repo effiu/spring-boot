@@ -33,6 +33,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.HandlerMapping;
 
 /**
+ * 自定义的 {@link HandlerMapping}，使用Spring MVC通过HTTP提供Web断点。
  * A custom {@link HandlerMapping} that makes web endpoints available over HTTP using
  * Spring MVC.
  *

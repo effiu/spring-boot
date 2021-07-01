@@ -52,6 +52,7 @@ public class ErrorPageRegistrarBeanPostProcessor implements BeanPostProcessor, B
 
 	@Override
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+		// 若Bean类型是ErrorPageRegistry，则注册所有registrars
 		if (bean instanceof ErrorPageRegistry) {
 			postProcessBeforeInitialization((ErrorPageRegistry) bean);
 		}
@@ -69,6 +70,10 @@ public class ErrorPageRegistrarBeanPostProcessor implements BeanPostProcessor, B
 		}
 	}
 
+	/**
+	 * 从BeanFactory中获取所有ErrorPageRegistrar
+	 * @return
+	 */
 	private Collection<ErrorPageRegistrar> getRegistrars() {
 		if (this.registrars == null) {
 			// Look up does not include the parent context
